@@ -1,0 +1,95 @@
+<div class="container">
+
+	<div class="row well">
+
+			<div class="col-md-6">
+				<div class="form-inline" role="form">
+
+					<div class="form-group">
+						<label class="sr-only" for="">Username</label>
+						<input [(ngModel)]="us.username" type="text" class="form-control" placeholder="Username">
+					</div>
+
+					<div class="form-group">
+						<label class="sr-only" for="">Senha</label>
+						<input [(ngModel)]="us.password" type="password" class="form-control" placeholder="Senha">
+					</div>
+
+					<button type="button" (click)="doLogin(us)" class="btn btn-primary">Login</button>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<span *ngIf="!logado">Você não está logado</span>
+				<div *ngIf="logado">
+					<span>Logado como {{ currentUser.username }}</span>
+					<a href="javascript:void(0);" (click)="doLogout()">Sair</a>
+				</div>
+			</div>
+
+	</div>
+
+
+
+	<div class="row">
+
+		<div class="col-md-4 criar">
+			<legend>Criar novo Usuário</legend>
+
+			<div class="form-group">
+				<label for="">Username</label>
+				<input type="text" [(ngModel)]="user.username" class="form-control" id="username">
+			</div>
+
+			<div class="form-group">
+				<label for="">Telefone</label>
+				<input type="tel" [(ngModel)]="user.telefone" class="form-control" id="telefone">
+			</div>
+
+			<div class="form-group">
+				<label for="">Senha</label>
+				<input type="password" [(ngModel)]="user.password" class="form-control" id="password">
+			</div>
+
+			<button class="btn btn-primary" (click)="novoUsuario(user)">Cadastrar</button>
+		</div>
+
+		<div class="col-md-4 listar">
+			<legend>Lista de Usuários</legend>
+			<ul>
+				<li *ngFor="let u of users">
+					<span class="usuarios">{{ u.username }} - {{ u.telefone }}</span><br>
+
+					<div class="btn-group">
+						<button (click)="editar(u.objectId)" type="button" class="btn btn-warning">Editar</button>
+						<button (click)="apagar(u.objectId)" type="button" class="btn btn-danger">Apagar</button>
+					</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="col-md-4 alterar">
+			<legend>Editar Usuário</legend>
+
+			<div *ngIf="editUser">
+				<input type="hidden" [(ngModel)]="userEdit.objectId">
+
+				<div class="form-group">
+					<label for="">Username</label>
+					<input type="text" [(ngModel)]="userEdit.username" class="form-control" id="user">
+				</div>
+
+				<div class="form-group">
+					<label for="">Telefone</label>
+					<input type="tel" [(ngModel)]="userEdit.telefone" class="form-control" id="tel">
+				</div>
+
+				<button class="btn btn-warning" (click)="alterarUsuario(userEdit)">Alterar</button>
+			</div>
+		</div>
+
+
+	</div>
+
+
+</div>
