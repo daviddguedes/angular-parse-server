@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
 			.subscribe((users) => {
 				this.users = users.results;
 			}, (error) => {
-				console.log(error);
+				console.log(error.json());
 			})
 	}
 
@@ -43,18 +43,17 @@ export class AppComponent implements OnInit {
 				this.listarUsuarios();
 				this.user = {};
 			}, error => {
-				console.log(error);
+				console.log(error.json());
 			});
 	}
 
 	alterarUsuario(user) {
 		this._pService.alterarUser(user)
 			.subscribe((user) => {
-				console.log(user);
 				this.editUser = false;
 				this.listarUsuarios();
 			}, error => {
-				console.log(error);
+				console.log(error.json());
 				this.editUser = false;
 			});
 	}
@@ -67,7 +66,7 @@ export class AppComponent implements OnInit {
 				this.userEdit.telefone = user.telefone;
 				this.editUser = true;
 			}, error => {
-				console.log(error);
+				console.log(error.json());
 				this.editUser = false;
 			});
 	}
@@ -80,10 +79,10 @@ export class AppComponent implements OnInit {
 						this.listarUsuarios();
 						this.doLogout();
 					}, error => {
-						console.log(error);
+						console.log(error.json());
 					});
 			}, error => {
-				console.log(error);
+				console.log(error.json());
 			});
 	}
 
@@ -95,7 +94,7 @@ export class AppComponent implements OnInit {
 				this.logado = true;
 				this.us = {};
 			}, error => {
-				console.log(error);
+				console.log(error.json());
 				alert(error.text());
 			});
 	}

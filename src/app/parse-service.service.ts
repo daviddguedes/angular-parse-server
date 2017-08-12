@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 export class ParseServiceService {
 
 	SERVER: string = "http://localhost:1337/api/v1";
+	DOMAIN: string = "http://localhost:1337";
 
 	constructor(private _http: Http) { }
 
@@ -31,6 +32,20 @@ export class ParseServiceService {
 			.map((res) => res.json());
 	}
 
+	// O Parse não permite que um usuário edite os dados de outro usuário.
+	// Para alterar os dados de outro usuário é necessário utilizar a Master Key
+	// Portanto criei outra rota no express que resolve essa operação.
+	adminAlterarUser(user) {
+		let token = JSON.parse(window.localStorage.getItem("currentUser"));
+		let headers = new Headers();
+		headers.append('X-Parse-Session-Token', token.sessionToken);
+		headers.append('Content-Type', 'application/json');
+
+		return this._http.post(this.DOMAIN + '/admin/user', user, { headers: headers })
+			.map((res) => res.json());
+	}
+
+	// Apenas o próprio usuário tem permissão para editar seus dados.
 	alterarUser(user) {
 		let token = JSON.parse(window.localStorage.getItem("currentUser"));
 		let headers = new Headers();
